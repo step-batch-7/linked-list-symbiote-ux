@@ -2,6 +2,14 @@
 #include<stdio.h>
 #include "list.h"
 
+Status remove_from_start(List_ptr list) {
+  int count = list->count;
+  Node_ptr next_pos = list->head->next;
+  list->head = next_pos;
+  if(count - 1 == list->count) return Success;
+  return Failure;
+};
+
 int is_num_present(List_ptr list, int num) {
   Node_ptr p_walk = list->head;
   while(p_walk != NULL) {

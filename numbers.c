@@ -45,7 +45,12 @@ int main(void) {
       break;
     case 'd':
     printf("%d\n",add_unique(list,value));
-    display_menu();    
+    display_menu();
+      break;
+    case 'e':
+    printf("%d\n",remove_from_start(list));
+    display_menu();
+    break;
     }    
     while((getchar()) != '\n');
     ch = getchar();
