@@ -26,6 +26,8 @@ typedef List *List_ptr;
 
 List_ptr create_list(void);
 void insert_value(List_ptr list, int value ,int position);
+Node_ptr get_position_to_insert(List_ptr, int position);
+void update_linked_list(Node_ptr,Node_ptr,List_ptr,int); 
 Node_ptr create_node(int value);
 
 Status add_to_end(List_ptr, int value);
