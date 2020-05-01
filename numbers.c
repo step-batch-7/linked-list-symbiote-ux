@@ -41,7 +41,11 @@ int main(void) {
     printf("Enter position\n");
     scanf("%d",&position);
     printf("%d\n",insert_at(list,value,position));
-    display_menu();  
+    display_menu();
+      break;
+    case 'd':
+    printf("%d\n",add_unique(list,value));
+    display_menu();    
     }    
     while((getchar()) != '\n');
     ch = getchar();

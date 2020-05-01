@@ -34,6 +34,7 @@ Status add_to_end(List_ptr, int value);
 Status add_to_start(List_ptr, int value);
 Status insert_at(List_ptr, int value, int position);
 Status add_unique(List_ptr, int value);
+int is_num_present(List_ptr, int);
 
 void display(List_ptr);
 

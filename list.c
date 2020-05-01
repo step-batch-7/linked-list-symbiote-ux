@@ -2,6 +2,26 @@
 #include<stdio.h>
 #include "list.h"
 
+int is_num_present(List_ptr list, int num) {
+  Node_ptr p_walk = list->head;
+  while(p_walk != NULL) {
+    if(p_walk->value == num) return 1;
+    p_walk = p_walk->next;
+  }
+  return 0;
+};
+
+Status add_unique(List_ptr list, int value) {
+  int count = list->count;
+  if(!is_num_present(list,value)) {
+  insert_value(list,value,count + 1);
+  if(count + 1 == list->count) return Success;
+  return Failure;
+  }
+  if(count == list->count) return Success;
+  return Failure;
+};
+
 Status insert_at(List_ptr list, int value, int position) {
   int count = list->count;
   position = position <= count ? position : count + 1;
@@ -19,7 +39,7 @@ Status add_to_start(List_ptr list, int value) {
 
 Status add_to_end(List_ptr list, int value) {
   int count = list->count;
-  insert_value(list,value,count+1);
+  insert_value(list,value,count + 1);
   if(count + 1 == list->count) return Success;
   return Failure;
 };
