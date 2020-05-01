@@ -21,16 +21,28 @@ void display_menu() {
 
 int main(void) {
   char ch;
-  int value;
+  int value,position;
   List_ptr list = create_list();
   display_menu();
   ch = getchar();
   while(ch != 'm') {
-    if(ch == 'a'){
-      printf("Enter a number\n");
-      scanf("%d",&value);
-      printf("%d\n",add_to_end(list,value));
-    }
+    printf("Enter a number\n");
+    scanf("%d",&value);
+    switch (ch){
+    case 'a':
+    printf("%d\n",add_to_end(list,value));
+    display_menu();
+      break;
+    case 'b':
+    printf("%d\n",add_to_start(list,value));
+    display_menu();
+      break;
+    case 'c':
+    printf("Enter position\n");
+    scanf("%d",&position);
+    printf("%d\n",insert_at(list,value,position));
+    display_menu();  
+    }    
     while((getchar()) != '\n');
     ch = getchar();
   }
