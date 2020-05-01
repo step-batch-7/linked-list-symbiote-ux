@@ -55,6 +55,10 @@ int main(void) {
     printf("%d\n",remove_from_end(list));
     display_menu();
       break;
+    case 'g':
+    printf("%d\n",remove_at(list,value));
+    display_menu();
+      break;
     }    
     while((getchar()) != '\n');
     ch = getchar();

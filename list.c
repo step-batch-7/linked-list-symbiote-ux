@@ -2,6 +2,21 @@
 #include<stdio.h>
 #include "list.h"
 
+Status remove_at(List_ptr list, int position){
+  int count = list->count;
+  if(position > count) return Failure;
+  Node_ptr p_walk = list->head;
+  while(position != 2) {
+    p_walk = p_walk->next;
+    position--;
+  }
+  Node_ptr node_to_delete = p_walk->next;
+  Node_ptr next_pos = node_to_delete->next;
+  p_walk->next = next_pos;
+  if(count - 1 == list->count) return Success;
+  return Failure;
+};
+
 Status remove_from_end(List_ptr list) {
   int count = list->count;
   Node_ptr p_walk = list->head;
