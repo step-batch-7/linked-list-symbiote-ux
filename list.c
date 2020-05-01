@@ -2,6 +2,19 @@
 #include<stdio.h>
 #include "list.h"
 
+Status remove_from_end(List_ptr list) {
+  int count = list->count;
+  Node_ptr p_walk = list->head;
+  while(count != 2) {
+    p_walk = p_walk->next;
+    count--;
+  }
+  list->last = p_walk;
+  list->last->next = NULL;
+  if(count - 1 == list->count) return Success;
+  return Failure;
+};
+
 Status remove_from_start(List_ptr list) {
   int count = list->count;
   Node_ptr next_pos = list->head->next;

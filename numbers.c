@@ -50,7 +50,11 @@ int main(void) {
     case 'e':
     printf("%d\n",remove_from_start(list));
     display_menu();
-    break;
+      break;
+    case 'f':
+    printf("%d\n",remove_from_end(list));
+    display_menu();
+      break;
     }    
     while((getchar()) != '\n');
     ch = getchar();
