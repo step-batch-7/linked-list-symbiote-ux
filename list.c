@@ -31,6 +31,24 @@ Node_ptr create_node(int value) {
   return node; 
 };
 
+void update_linked_list(Node_ptr p_walk,Node_ptr node,List_ptr list,int position) {
+  Node_ptr next_pos = p_walk->next;
+  p_walk->next = node;
+  node->next = next_pos;
+  list->count++;
+  if(list->count == position) list->last = node;
+};
+
+Node_ptr get_position_to_insert(List_ptr list, int position) {
+  Node_ptr p_walk = list->head;
+  int curr_pos = 1;
+  while(curr_pos != position-1) {
+    p_walk = p_walk->next;
+    curr_pos++;
+  }
+  return p_walk;
+};
+
 void insert_value(List_ptr list, int value, int position) {
   Node_ptr new_node = create_node(value);
   if(list->head == NULL) {
@@ -44,19 +62,11 @@ void insert_value(List_ptr list, int value, int position) {
     list->head = new_node;
     new_node->next = new_head;
     list->count++;
-    return;
+  } 
+  else {
+    Node_ptr p_walk = get_position_to_insert(list,position);
+    update_linked_list(p_walk,new_node,list,position);
   }
-  Node_ptr p_walk = list->head;
-  int curr_pos = 1;
-  while(curr_pos != position-1) {
-    p_walk = p_walk->next;
-    curr_pos++;
-  }
-  Node_ptr new_pos = p_walk->next;
-  p_walk->next = new_node;
-  new_node->next = new_pos;
-  list->count++;
-  if(list->count == position) list->last = new_node;
 };
 
 List_ptr create_list() {
