@@ -25,7 +25,7 @@ typedef struct
 typedef List *List_ptr;
 
 List_ptr create_list(void);
-void insert_value(List_ptr list, int value);
+void insert_value(List_ptr list, int value ,int position);
 Node_ptr create_node(int value);
 
 Status add_to_end(List_ptr, int value);
