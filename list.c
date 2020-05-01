@@ -2,6 +2,24 @@
 #include<stdio.h>
 #include "list.h"
 
+Status remove_first_occurrence(List_ptr list, int num) {
+  int count = list->count;
+  Node_ptr p_walk = list->head;
+  Node_ptr prev_pos = NULL;
+  if(list->head->value == num ) {
+    list->head = list->head->next;
+  } else {
+  while(p_walk->value != num) {
+    prev_pos = p_walk;
+    p_walk = p_walk->next;
+  }
+  prev_pos->next = p_walk->next;
+  }
+  list->count--;
+  if(count - 1 == list->count) return Success;
+  return Failure;
+};
+
 Status remove_at(List_ptr list, int position){
   int count = list->count;
   if(position > count) return Failure;
@@ -13,6 +31,7 @@ Status remove_at(List_ptr list, int position){
   Node_ptr node_to_delete = p_walk->next;
   Node_ptr next_pos = node_to_delete->next;
   p_walk->next = next_pos;
+  list->count--;
   if(count - 1 == list->count) return Success;
   return Failure;
 };
@@ -26,6 +45,7 @@ Status remove_from_end(List_ptr list) {
   }
   list->last = p_walk;
   list->last->next = NULL;
+  list->count--;
   if(count - 1 == list->count) return Success;
   return Failure;
 };
@@ -34,6 +54,7 @@ Status remove_from_start(List_ptr list) {
   int count = list->count;
   Node_ptr next_pos = list->head->next;
   list->head = next_pos;
+  list->count--;
   if(count - 1 == list->count) return Success;
   return Failure;
 };

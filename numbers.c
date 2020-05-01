@@ -59,6 +59,10 @@ int main(void) {
     printf("%d\n",remove_at(list,value));
     display_menu();
       break;
+    case 'h':
+    printf("%d\n",remove_first_occurrence(list,value));
+    display_menu();
+      break;  
     }    
     while((getchar()) != '\n');
     ch = getchar();
