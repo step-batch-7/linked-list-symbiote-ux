@@ -62,6 +62,14 @@ int main(void) {
     case 'h':
     printf("%d\n",remove_first_occurrence(list,value));
     display_menu();
+      break;
+    case 'i':
+    printf("%d\n",remove_all_occurrences(list,value));
+    display_menu();
+      break;
+    case 'j':
+    printf("%d\n",clear_list(list));
+    display_menu();
       break;  
     }    
     while((getchar()) != '\n');

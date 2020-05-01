@@ -2,20 +2,52 @@
 #include<stdio.h>
 #include "list.h"
 
-Status remove_first_occurrence(List_ptr list, int num) {
+Status clear_list(List_ptr list) {
   int count = list->count;
+  Node_ptr p_walk = list->head;
+  Node_ptr element_to_free = NULL;
+  while(p_walk != NULL) {
+    element_to_free = p_walk;
+    p_walk = p_walk->next;
+    free(element_to_free);
+  }
+  list->count = 0;
+  if(list->count == 0) return Success;
+  return Failure;
+};
+
+Status remove_all_occurrences(List_ptr list, int value) {
+  int count = list->count;
+  int times = 0;
+  Node_ptr p_walk = list->head;
+  while(p_walk != NULL) {
+    remove_num(list,value);
+    p_walk = p_walk->next;
+    times++;
+  }
+  if(count - times == list->count) return Success;
+  return Failure;
+};
+
+void remove_num(List_ptr list, int num) {
+  if(!is_num_present(list,num)) return;
   Node_ptr p_walk = list->head;
   Node_ptr prev_pos = NULL;
   if(list->head->value == num ) {
     list->head = list->head->next;
   } else {
-  while(p_walk->value != num) {
+    while(p_walk->value != num ) {
     prev_pos = p_walk;
     p_walk = p_walk->next;
   }
   prev_pos->next = p_walk->next;
   }
   list->count--;
+}
+
+Status remove_first_occurrence(List_ptr list, int num) {
+  int count = list->count;
+  remove_num(list,num);
   if(count - 1 == list->count) return Success;
   return Failure;
 };
