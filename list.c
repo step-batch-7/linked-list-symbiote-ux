@@ -2,6 +2,19 @@
 #include<stdio.h>
 #include "list.h"
 
+void destroy_list(List_ptr list) {
+  clear_list(list);
+  free(list);
+};
+
+void display(List_ptr list) {
+  Node_ptr p_walk = list->head;
+  while(p_walk != NULL) {
+    printf("%d \n",p_walk->value);
+    p_walk = p_walk->next;
+  }
+};
+
 Status clear_list(List_ptr list) {
   int count = list->count;
   Node_ptr p_walk = list->head;
@@ -10,13 +23,16 @@ Status clear_list(List_ptr list) {
     element_to_free = p_walk;
     p_walk = p_walk->next;
     free(element_to_free);
+    list->count--;
   }
-  list->count = 0;
-  if(list->count == 0) return Success;
-  return Failure;
+  list->head = NULL;
+  list->last = NULL;
+  Status code = list->count == 0 ? Success : Failure;
+  return code;
 };
 
 Status remove_all_occurrences(List_ptr list, int value) {
+  if(!is_num_present(list,value)) return Failure;
   int count = list->count;
   int times = 0;
   Node_ptr p_walk = list->head;
@@ -25,17 +41,15 @@ Status remove_all_occurrences(List_ptr list, int value) {
     p_walk = p_walk->next;
     times++;
   }
-  if(count - times == list->count) return Success;
-  return Failure;
+  Status code = count - times == list->count ? Success : Failure;
+  return code;
 };
 
 void remove_num(List_ptr list, int num) {
-  if(!is_num_present(list,num)) return;
   Node_ptr p_walk = list->head;
   Node_ptr prev_pos = NULL;
-  if(list->head->value == num ) {
-    list->head = list->head->next;
-  } else {
+  if(list->head->value == num ) list->head = list->head->next;
+  else {
     while(p_walk->value != num ) {
     prev_pos = p_walk;
     p_walk = p_walk->next;
@@ -46,49 +60,61 @@ void remove_num(List_ptr list, int num) {
 }
 
 Status remove_first_occurrence(List_ptr list, int num) {
+  if(!is_num_present(list,num)) return Failure;
   int count = list->count;
   remove_num(list,num);
-  if(count - 1 == list->count) return Success;
-  return Failure;
+  Status code = count - 1 == list->count ? Success : Failure;
+  return code;
 };
 
 Status remove_at(List_ptr list, int position){
   int count = list->count;
   if(position > count) return Failure;
+  if(position == 1) list->head = list->head->next;
+  else {
+    Node_ptr p_walk = get_num(list,position-1);
+    Node_ptr next_pos = p_walk->next->next;
+    p_walk->next = next_pos;
+  }
+  list->count--;
+  Status code = count - 1 == list->count ? Success : Failure;
+  return code;
+};
+
+Node_ptr get_num(List_ptr list, int position) {
   Node_ptr p_walk = list->head;
-  while(position != 2) {
+  while(position > 1) {
     p_walk = p_walk->next;
     position--;
-  }
-  Node_ptr node_to_delete = p_walk->next;
-  Node_ptr next_pos = node_to_delete->next;
-  p_walk->next = next_pos;
-  list->count--;
-  if(count - 1 == list->count) return Success;
-  return Failure;
+    }
+    return p_walk;
 };
 
 Status remove_from_end(List_ptr list) {
   int count = list->count;
-  Node_ptr p_walk = list->head;
-  while(count != 2) {
-    p_walk = p_walk->next;
-    count--;
+  int position = count -1;
+  if(!count) return Failure;
+  if(count == 1) {
+    list->head = NULL;
+    list->last = NULL;
+  }   
+  else {
+    Node_ptr p_walk = get_num(list,position);
+    list->last = p_walk;
+    list->last->next = NULL;
   }
-  list->last = p_walk;
-  list->last->next = NULL;
   list->count--;
-  if(count - 1 == list->count) return Success;
-  return Failure;
+  Status code = count - 1 == list->count ? Success : Failure;
+  return code;
 };
 
 Status remove_from_start(List_ptr list) {
   int count = list->count;
-  Node_ptr next_pos = list->head->next;
-  list->head = next_pos;
+  if(!count) return Failure;
+  list->head = list->head->next;
   list->count--;
-  if(count - 1 == list->count) return Success;
-  return Failure;
+  Status code = count - 1 == list->count ? Success : Failure;
+  return code;
 };
 
 int is_num_present(List_ptr list, int num) {
@@ -102,35 +128,32 @@ int is_num_present(List_ptr list, int num) {
 
 Status add_unique(List_ptr list, int value) {
   int count = list->count;
-  if(!is_num_present(list,value)) {
+  if(is_num_present(list,value)) return Failure;
   insert_value(list,value,count + 1);
-  if(count + 1 == list->count) return Success;
-  return Failure;
-  }
-  if(count == list->count) return Success;
-  return Failure;
+  Status code = count + 1 == list->count ? Success : Failure;
+  return code;
 };
 
 Status insert_at(List_ptr list, int value, int position) {
   int count = list->count;
   position = position <= count ? position : count + 1;
   insert_value(list,value,position);
-  if(count + 1 == list->count) return Success;
-  return Failure;
+  Status code = count + 1 == list->count ? Success : Failure;
+  return code;
 };
 
 Status add_to_start(List_ptr list, int value) {
   int count = list->count;
   insert_value(list,value,1);
-  if(count + 1 == list->count) return Success;
-  return Failure;
+  Status code = count + 1 == list->count ? Success : Failure;
+  return code;
 };
 
 Status add_to_end(List_ptr list, int value) {
   int count = list->count;
   insert_value(list,value,count + 1);
-  if(count + 1 == list->count) return Success;
-  return Failure;
+  Status code = count + 1 == list->count ? Success : Failure;
+  return code;
 };
 
 Node_ptr create_node(int value) {
@@ -167,9 +190,10 @@ void insert_value(List_ptr list, int value, int position) {
     return;
   }
   if(list->head != NULL && position == 1) {
-    Node_ptr new_head = list->head;
+
+    Node_ptr prev_head = list->head;
     list->head = new_node;
-    new_node->next = new_head;
+    new_node->next = prev_head;
     list->count++;
   } 
   else {
