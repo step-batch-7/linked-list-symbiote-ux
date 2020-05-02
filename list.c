@@ -67,6 +67,15 @@ Status remove_first_occurrence(List_ptr list, int num) {
   return code;
 };
 
+Node_ptr get_num(List_ptr list, int position) {
+  Node_ptr p_walk = list->head;
+  while(position > 1) {
+    p_walk = p_walk->next;
+    position--;
+    }
+    return p_walk;
+};
+
 Status remove_at(List_ptr list, int position){
   int count = list->count;
   if(position > count) return Failure;
@@ -81,31 +90,8 @@ Status remove_at(List_ptr list, int position){
   return code;
 };
 
-Node_ptr get_num(List_ptr list, int position) {
-  Node_ptr p_walk = list->head;
-  while(position > 1) {
-    p_walk = p_walk->next;
-    position--;
-    }
-    return p_walk;
-};
-
 Status remove_from_end(List_ptr list) {
-  int count = list->count;
-  int position = count -1;
-  if(!count) return Failure;
-  if(count == 1) {
-    list->head = NULL;
-    list->last = NULL;
-  }   
-  else {
-    Node_ptr p_walk = get_num(list,position);
-    list->last = p_walk;
-    list->last->next = NULL;
-  }
-  list->count--;
-  Status code = count - 1 == list->count ? Success : Failure;
-  return code;
+  return remove_at(list,list->count);
 };
 
 Status remove_from_start(List_ptr list) {
@@ -127,11 +113,8 @@ int is_num_present(List_ptr list, int num) {
 };
 
 Status add_unique(List_ptr list, int value) {
-  int count = list->count;
   if(is_num_present(list,value)) return Failure;
-  insert_value(list,value,count + 1);
-  Status code = count + 1 == list->count ? Success : Failure;
-  return code;
+  return insert_at(list,value,list->count+1);
 };
 
 Status insert_at(List_ptr list, int value, int position) {
@@ -143,17 +126,11 @@ Status insert_at(List_ptr list, int value, int position) {
 };
 
 Status add_to_start(List_ptr list, int value) {
-  int count = list->count;
-  insert_value(list,value,1);
-  Status code = count + 1 == list->count ? Success : Failure;
-  return code;
+  return insert_at(list,value,1);
 };
 
 Status add_to_end(List_ptr list, int value) {
-  int count = list->count;
-  insert_value(list,value,count + 1);
-  Status code = count + 1 == list->count ? Success : Failure;
-  return code;
+  return insert_at(list,value,list->count+1);
 };
 
 Node_ptr create_node(int value) {
