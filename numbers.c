@@ -31,13 +31,11 @@ int main(void) {
     printf("Enter a number\n");
     scanf("%d",&value);
     printf("%d\n",add_to_end(list,value));
-    display_menu();
       break;
     case 'b':
     printf("Enter a number\n");
     scanf("%d",&value);
     printf("%d\n",add_to_start(list,value));
-    display_menu();
       break;
     case 'c':
     printf("Enter a number\n");
@@ -45,55 +43,46 @@ int main(void) {
     printf("Enter position\n");
     scanf("%d",&position);
     printf("%d\n",insert_at(list,value,position));
-    display_menu();
       break;
     case 'd':
     printf("Enter a number\n");
     scanf("%d",&value);
     printf("%d\n",add_unique(list,value));
-    display_menu();
       break;
     case 'e':
     printf("%d\n",remove_from_start(list));
-    display_menu();
       break;
     case 'f':
     printf("%d\n",remove_from_end(list));
-    display_menu();
       break;
     case 'g':
     printf("Enter a position\n");
     scanf("%d",&position);
     printf("%d\n",remove_at(list,position));
-    display_menu();
       break;
     case 'h':
     printf("Enter a number\n");
     scanf("%d",&value);
     printf("%d\n",remove_first_occurrence(list,value));
-    display_menu();
       break;
     case 'i':
     printf("Enter a number\n");
     scanf("%d",&value);
     printf("%d\n",remove_all_occurrences(list,value));
-    display_menu();
       break;
     case 'j':
     printf("%d\n",clear_list(list));
-    display_menu();
       break;
     case 'k':
     printf("Enter a number\n");
     scanf("%d",&value);
     printf("%d\n",is_num_present(list,value));
-    display_menu();
       break;
     case 'l':
     display(list);
-    display_menu();
       break;  
-    }    
+    }
+    display_menu();    
     while((getchar()) != '\n');
     ch = getchar();
   }
