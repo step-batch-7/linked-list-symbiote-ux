@@ -65,11 +65,15 @@ Status remove_at(List_ptr list, int position){
 };
 
 Status remove_from_end(List_ptr list) {
-  return remove_at(list,list->count -1);
+  return remove_at(list,list->count-1);
 };
 
 Status remove_from_start(List_ptr list) {
-  list->head = list->head->next;
+  if(list->count == 0) return Failure;
+  if(list->count == 1) list->last = NULL;
+  Node_ptr  new_head = list->head->next;
+  free(list->head);
+  list->head = new_head;
   list->count--;
   return Success;
 };
