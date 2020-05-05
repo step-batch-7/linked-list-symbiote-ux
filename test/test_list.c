@@ -60,6 +60,16 @@ void assert_remove_from_start(void) {
   assert(list->last == NULL);
   assert(list->head == NULL);
   printf("Passed\n");
+
+
+  printf("should remove first num from the list when more than one is present\n");
+  add_to_end(list,5);
+  add_to_end(list,10);
+  assert(remove_from_start(list));
+  assert(list->count == 1);
+  assert(list->last->value == 10);
+  assert(list->head->value == 10);
+  printf("Passed\n");
 };
 
 void assert_add_to_end(void) {

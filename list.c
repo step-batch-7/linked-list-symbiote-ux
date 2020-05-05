@@ -53,12 +53,11 @@ Status remove_at(List_ptr list, int position){
   if(position > list->count || position < 0 ) return Failure;
   if(position == 0 ) return remove_from_start(list);
   Node_ptr p_walk = get_position(list,position);
-  if(position == list->count) {
+  if(position + 1 == list->count) {
     list->last = p_walk;
     list->last->next = NULL;
   } else {
      Node_ptr next_pos = p_walk->next->next;
-     free(p_walk->next);
      p_walk->next = next_pos;
   }
   list->count--;
@@ -113,7 +112,7 @@ void update_linked_list(Node_ptr p_walk,Node_ptr node,List_ptr list,int position
   p_walk->next = node;
   node->next = next_pos;
   list->count++;
-  if(list->count == position) list->last = node;
+  if(list->count == position + 1) list->last = node;
 };
 
 Node_ptr get_position(List_ptr list, int position) {
