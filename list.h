@@ -26,8 +26,7 @@ typedef List *List_ptr;
 
 List_ptr create_list(void);
 Node_ptr create_node(int value);
-void insert_value(List_ptr list, int value ,int position);
-Node_ptr get_position_to_insert(List_ptr, int position);
+Node_ptr get_position(List_ptr, int position);
 void update_linked_list(Node_ptr,Node_ptr,List_ptr,int); 
 
 Status add_to_end(List_ptr, int value);
@@ -40,8 +39,6 @@ void display(List_ptr);
 
 Status remove_from_start(List_ptr);
 Status remove_from_end(List_ptr);
-Node_ptr get_num(List_ptr, int);
-void remove_num(List_ptr, int);
 Status remove_at(List_ptr, int position);
 
 Status remove_first_occurrence(List_ptr, int value);
