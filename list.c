@@ -58,6 +58,7 @@ Status remove_at(List_ptr list, int position){
     list->last->next = NULL;
   } else {
      Node_ptr next_pos = p_walk->next->next;
+     free(p_walk->next);
      p_walk->next = next_pos;
   }
   list->count--;
