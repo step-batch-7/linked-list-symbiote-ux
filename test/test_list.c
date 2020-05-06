@@ -2,6 +2,55 @@
 #include <stdio.h>
 #include "../list.h"
 
+void assert_remove_first_occurrence(void) {
+  printf("Remove_First_Occurrence\n");
+  List_ptr list = create_list();
+  printf("should fail if the list is empty\n");
+  assert(!remove_all_occurrences(list,1));
+  assert(list->count == 0);
+  printf("Passed\n");
+
+  printf("should fail if num is not present in the list\n");
+  add_to_end(list,5);
+  add_to_end(list,6);
+  assert(!remove_all_occurrences(list,1));
+  assert(list->count == 2);
+  printf("Passed\n");
+
+  printf("should remove the first occurrence of the num from the list\n");
+  assert(remove_first_occurrence(list,6));
+  assert(list->count == 1);
+  assert(list->head->value == 5);
+  assert(list->last->value == 5);
+  printf("Passed\n");
+};
+
+void assert_remove_all_occurrence(void) {
+  printf("Remove_All_Occurrence\n");
+  List_ptr list = create_list();
+  printf("should fail if the list is empty\n");
+  assert(!remove_all_occurrences(list,2));
+  assert(list->head == NULL);
+  printf("Passed\n");
+
+  printf("should fail if num is not present in the list\n");
+  add_to_end(list,1);
+  add_to_end(list,2);
+  assert(!remove_all_occurrences(list,4));
+  assert(list->count == 2);
+  printf("Passed\n");
+
+   printf("should remove all occurrences of a num from the list\n");
+  add_to_end(list,1);
+  add_to_end(list,3);
+  add_to_end(list,1);
+  assert(remove_all_occurrences(list,1));
+  assert(list->count == 2);
+  assert(list->head->value == 2);
+  assert(list->last->value == 3);
+  printf("Passed\n");
+};
+
 void assert_remove_at(void) {
   printf("Remove_At\n");
   List_ptr list = create_list();
@@ -88,6 +137,8 @@ int main(void) {
   assert_remove_from_start();
   assert_remove_from_end();
   assert_remove_at();
+  assert_remove_all_occurrence();
+  assert_remove_first_occurrence();
   return 0;
 }
 

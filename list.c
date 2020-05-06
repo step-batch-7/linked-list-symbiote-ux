@@ -30,7 +30,8 @@ Status clear_list(List_ptr list) {
 };
 
 Status remove_all_occurrences(List_ptr list, int value) {
-  int is_present = 1;
+  Status is_present = is_num_present(list,value);
+  if(!is_present) return Failure;
   while(is_present == 1) {
     is_present = remove_first_occurrence(list,value);   
   }
@@ -38,9 +39,8 @@ Status remove_all_occurrences(List_ptr list, int value) {
 };
 
 Status remove_first_occurrence(List_ptr list, int num) {
-  if(!is_num_present(list,num)) return Failure;
   Node_ptr p_walk = list->head;
-  int position = 1;
+  int position = 0;
   while(p_walk != NULL) {
     if(p_walk->value == num) return remove_at(list,position);
     p_walk = p_walk->next;
@@ -78,7 +78,7 @@ Status remove_from_start(List_ptr list) {
   return Success;
 };
 
-int is_num_present(List_ptr list, int num) {
+Status is_num_present(List_ptr list, int num) {
   Node_ptr p_walk = list->head;
   while(p_walk != NULL) {
     if(p_walk->value == num) return Success;
